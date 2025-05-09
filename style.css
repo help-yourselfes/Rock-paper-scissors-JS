@@ -1,0 +1,507 @@
+html {
+    --font-family: system-ui;
+    --font-weight: 500;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-weight: var(--font-weight);
+
+    background-image: var(--backdrop);
+    background-position: center;
+    /* Make the background image cover the entire body */
+    background-size: cover;
+}
+
+html.light {
+
+    --backdrop: url(backdrop.jpg),
+        url(backdrop\ lowres.jpg),
+        linear-gradient(7deg, #e4e0d3, #0060f9);
+    --text-color: rgb(26, 25, 24);
+    --border-color: rgba(255, 255, 255, 0.5);
+    --window-background: rgba(255, 255, 255, 0.5);
+    --window-inside: rgba(0, 0, 0, 0.1);
+    --window-outside: rgba(0, 0, 0, 0.1);
+    --window-decoration: 0 0.1rem 0.1rem 0 rgb(255, 255, 255) inset,
+        0 0.25rem 0.25rem 0 rgba(255, 255, 255, 0.267) inset,
+        0 1rem 1rem 0 rgba(255, 255, 255, 0.151) inset,
+        0 2rem 2rem 0 rgba(255, 255, 255, 0.125) inset,
+        0 -0.1rem 0.1rem 0 rgba(0, 0, 0, 0.1) inset;
+
+    --icon-weak: rgb(97, 97, 97);
+    --icon-strong: rgb(14, 14, 14);
+
+    --win-color: rgba(0, 255, 0, 0.25);
+    --draw-color: rgba(255, 255, 0, 0.25);
+    --fail-color: rgba(255, 0, 0, 0.25);
+}
+
+html.dark {
+
+    --backdrop: url(backdrop\ dark.jpg),
+        url(backdrop\ dark\ lowres.jpg),
+        linear-gradient(7deg, #000000, #f98d00);
+    --text-color: rgb(243, 234, 224);
+    --border-color: rgba(255, 81, 0, 0.5);
+    --window-background: rgba(0, 0, 0, 0.79);
+    --window-inside: rgba(0, 0, 0, 0.418);
+    --window-outside: rgba(255, 255, 255, 0.002);
+    --window-decoration: 0 0.1rem 0.1rem 0 rgba(255, 60, 0, 0.11) inset,
+        0 0.25rem 0.25rem 0 rgba(255, 72, 0, 0.137) inset,
+        0 1rem 1rem 0 rgba(228, 174, 153, 0.068) inset,
+        0 -0.1rem 0.1rem 0 rgba(0, 0, 0, 0.1) inset;
+
+    --icon-weak: rgba(255, 145, 0, 0.267);
+    --icon-strong: rgb(255, 255, 255);
+
+    --win-color: rgba(255, 0, 128, 0.25);
+    --draw-color: rgba(255, 72, 0, 0.25);
+    --fail-color: rgba(255, 187, 0, 0.25);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav>div {
+    margin: 0.5rem;
+    height: 2.5rem;
+    padding: 0 0.25rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.25), var(--window-decoration);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: max-content;
+    background: var(--window-background);
+    backdrop-filter: blur(1rem);
+}
+
+
+nav button {
+    border-radius: 2rem;
+    width: 100%;
+    height: 2rem;
+
+    border: none;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    svg {
+        fill: var(--icon-weak);
+        margin-right: 0.25rem;
+    }
+}
+
+nav button:hover {
+    background: var(--window-inside);
+
+    svg {
+        fill: var(--icon-strong);
+    }
+}
+
+
+
+#left-side {
+    padding: 0.25rem;
+    border-radius: 1.25rem;
+    flex-direction: column;
+    height: max-content;
+    min-width: 6.5rem;
+    span {
+        color: var(--text-color);
+        font-weight: var(--font-weight);
+        font-family: var(--font-family);
+        text-align: center;
+        margin: 0 0.25rem;
+    }
+}
+
+#right-side {
+    padding: 0 0.5rem;
+    
+    span {
+        min-width: 1rem;
+        padding: 0 1rem;
+        width: max-content;
+        height: 1.5rem;
+        align-content: baseline;
+        text-align: center;
+        box-shadow: 0 0.3rem 0.3rem -0.2rem inset rgba(0, 0, 0, 0.5),
+        0 -0.2rem 0.3rem -0.2rem inset var(--border-color);
+    }
+    #stats-win {
+        border-radius: 5rem 0 0 5rem;
+        background-color: var(--win-color);
+    }
+
+    #stats-draw {
+        background-color: var(--draw-color);
+    }
+
+    #stats-fail {
+    border-radius: 0 5rem 5rem 0;
+    background-color: var(--fail-color);
+    }
+}
+
+
+#app {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+* {
+    transition: all 300ms ease;
+}
+
+
+svg {
+    overflow: visible;
+}
+
+#content {
+    width: fit-content;
+    position: absolute;
+    margin-bottom: 5rem;
+    justify-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+    overflow: hidden;
+    background-color: var(--window-background);
+    box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.25), var(--window-decoration);
+    backdrop-filter: blur(1rem);
+
+}
+
+#content>div {
+    padding: 0;
+}
+
+#selection {
+    width: 15rem;
+    display: flex;
+    gap: 0;
+    background-color: var(--window-inside);
+    padding: 1rem !important;
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.25);
+}
+
+
+#selection :first-child {
+    border-radius: 1rem 0 0 0;
+}
+
+#selection :last-child {
+    border-radius: 0 1rem 0 0;
+}
+
+#selection>button {
+    display: block;
+    border-style: solid;
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid rgba(255, 255, 255, 0);
+    background-color: rgba(0, 0, 0, 0);
+
+    svg {
+        fill: var(--icon-weak);
+    }
+
+}
+
+#selection svg {
+    width: 2rem;
+    height: 2rem;
+
+
+    * {
+        transform-origin: 50% -50%;
+    }
+}
+
+#selection>button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: var(--border-color);
+}
+
+#selection>button:hover {
+    svg {
+        fill: var(--icon-strong);
+        transform: scale(1.2);
+
+    }
+
+    #scissors-svg {
+        #top {
+            animation: scissors-top 0.5s normal;
+        }
+
+        #bottom {
+            animation: scissors-bottom 0.5s normal;
+        }
+    }
+
+    #rock-svg {
+        #center {
+            animation: rock-center 0.5s normal;
+        }
+
+        #top {
+            animation: rock-top 0.5s normal;
+        }
+
+        #left {
+            animation: rock-left 0.5s normal;
+        }
+
+        #right {
+            animation: rock-right 0.5s normal;
+        }
+    }
+
+    #paper-svg {
+        #body {
+            animation: paper-body 0.5s normal;
+        }
+
+        #top {
+            animation: paper-top 0.5s normal;
+        }
+
+        #bottom {
+            animation: paper-bottom 0.5s normal;
+        }
+    }
+}
+
+#game {
+    padding: 1rem 0 !important;
+    width: 13rem;
+    display: flex;
+    height: 5rem;
+    flex-direction: row;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#game:not(.hide) {
+    max-height: 100%;
+}
+
+#game.hide {
+    max-height: 0;
+}
+
+#game>svg {
+    fill: var(--icon-weak);
+    width: 2rem;
+    height: 2rem;
+}
+
+#game>div {
+    width: 3rem;
+    height: 3rem;
+
+    svg {
+        fill: var(--icon-strong);
+        width: 3rem;
+        height: 3rem;
+
+        * {
+            transform-origin: 50% -50%;
+        }
+
+    }
+
+    #scissors-svg {
+        #top {
+            animation: scissors-top 0.75s normal;
+        }
+
+        #bottom {
+            animation: scissors-bottom 0.75s normal;
+        }
+    }
+
+    #rock-svg {
+
+        #center {
+            animation: rock-center 0.75s normal;
+        }
+
+        #top {
+            animation: rock-top 0.75s normal;
+        }
+
+        #left {
+            animation: rock-left 0.75s normal;
+        }
+
+        #right {
+            animation: rock-right 0.75s normal;
+        }
+    }
+
+    #paper-svg {
+        #body {
+            animation: paper-body 0.75s normal;
+        }
+
+        #top {
+            animation: paper-top 0.75s normal;
+        }
+
+        #bottom {
+            animation: paper-bottom 0.75s normal;
+        }
+    }
+}
+
+#game>#card2>svg {
+    transform: scale(-1, 1);
+}
+
+#result {
+    height: 1.5rem;
+    padding: 0.5rem 0 !important;
+    width: 15rem;
+    margin: 0 1rem 1rem 1rem;
+    border-radius: 2rem;
+    background-color: var(--window-outside);
+
+    box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25), var(--window-decoration);
+}
+
+#result>p {
+
+    text-align: center;
+    overflow: hidden;
+    margin: 0;
+    height: 1.5rem;
+    font-size: 1rem;
+    max-height: 1.5rem;
+}
+
+#result>p.hide {
+
+    max-height: 0rem;
+}
+
+.hide {}
+
+
+@keyframes scissors-top {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-7deg);
+    }
+
+    100% {}
+}
+
+@keyframes scissors-bottom {
+    0% {
+        transform-origin: 50% -50%;
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(30deg);
+    }
+
+    100% {}
+}
+
+@keyframes rock-center {
+    0% {}
+
+    50% {
+        transform: translate(0, 3rem);
+    }
+
+    100% {}
+
+}
+
+@keyframes rock-top {
+    0% {}
+
+    50% {
+        transform: translate(0, -2rem);
+    }
+
+    100% {}
+}
+
+@keyframes rock-left {
+    0% {}
+
+    50% {
+        transform: translate(-3rem, 5rem);
+    }
+
+    100% {}
+}
+
+@keyframes rock-right {
+    0% {}
+
+    50% {
+        transform: translate(3rem, 5rem);
+    }
+
+    100% {}
+}
+
+@keyframes paper-top {
+
+    0% {}
+
+    25% {
+        transform: translate(0, 4rem);
+    }
+
+    100% {}
+}
+
+@keyframes paper-bottom {
+    0% {}
+
+    50% {
+        transform: translate(0, 6rem);
+    }
+
+    100% {}
+}
+
+@keyframes paper-body {
+    0% {}
+
+    50% {
+        transform: translate(0, 2rem);
+    }
+
+    100% {}
+}
