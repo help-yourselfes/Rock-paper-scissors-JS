@@ -150,7 +150,7 @@ nav button:hover {
         background-color: var(--draw-color);
     }
 
-    #stats-fail {
+    #stats-loss {
     border-radius: 0 5rem 5rem 0;
     background-color: var(--fail-color);
     }
