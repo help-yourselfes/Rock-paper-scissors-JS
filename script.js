@@ -11,8 +11,9 @@ const Game = new class {
                 return this.types[Math.floor(Math.random() * this.types.length)]
             }
         };
-        this.stats = JSON.parse(localStorage.getItem('stats')) || this.cleanStats();
-
+        this.stats = JSON.parse(localStorage.getItem('stats'));
+        if (!this.stats) this.cleanStats();
+        
         this.user = new this.Player();
         this.enemy = new this.Player();
     }
